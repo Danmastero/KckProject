@@ -1,12 +1,17 @@
-﻿using System;
+﻿//using BaseSnake;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
 namespace Snake
 {
-    class snake
+    class Snake  /*BaseSnakeLib*/
     {
+        private const int gameMapMaxSize = 500;
+        private const int minSnakeSize = 2;
+        
+
         public int lenght;
         public string directon;
         int speed = 100;
@@ -14,19 +19,20 @@ namespace Snake
         private string head = "O";
         readonly Random number = new Random();
 
-        cords headpos = new cords(50, 20);  // where snake start
-        cords tailpos = new cords(0, 1);
+        Coordinates headpos = new Coordinates(50, 20);  // where snake start
+        Coordinates tailpos = new Coordinates(0, 1);
 
-        food snack = new food(); // <- make a meal for a snake
-        cords foodpos = new cords(0, 0);
+        Food snack = new Food(); // <- make a meal for a snake
+        Coordinates foodpos = new Coordinates(0, 0);
 
-        food drug = new food();
-        cords drugpos = new cords(0, 0);
+        Food drug = new Food();
+        Coordinates drugpos = new Coordinates(0, 0);
 
-        readonly int[,] snakeBody = new int[500, 2];  // game map should be max 500 fields
+        readonly int[,] snakeBody = new int[gameMapMaxSize, minSnakeSize];  // game map should be max 500 fields
 
-        public snake()
+        public Snake()
         {
+            
             lenght = 10;
             directon = "RIGHT";
         }
@@ -36,14 +42,12 @@ namespace Snake
             Console.CursorVisible = false;
 
             // get old position of head
-            snakeBody[lenght - 1, tailpos.x] = headpos.x;
-            snakeBody[lenght - 1, tailpos.y] = headpos.y;
+            GetOldSnakePosition();
 
             // refresh position of the whole body
             for (int i = 2; i < lenght; i++)
             {
-                snakeBody[i - 1, tailpos.x] = snakeBody[i, tailpos.x];
-                snakeBody[i - 1, tailpos.y] = snakeBody[i, tailpos.y];
+                GetNewSnakePosition(i);
                 if ((snakeBody[i - 2, tailpos.x] == headpos.x) && (snakeBody[i - 2, tailpos.y] == headpos.y)) { return false; }
             }
 
@@ -109,6 +113,18 @@ namespace Snake
             Console.Write(body);
 
             return true;
+        }
+
+        private void GetNewSnakePosition(int i)
+        {
+            snakeBody[i - 1, tailpos.x] = snakeBody[i, tailpos.x];
+            snakeBody[i - 1, tailpos.y] = snakeBody[i, tailpos.y];
+        }
+
+        private void GetOldSnakePosition()
+        {
+            snakeBody[lenght - 1, tailpos.x] = headpos.x;
+            snakeBody[lenght - 1, tailpos.y] = headpos.y;
         }
 
         public int EatFood()

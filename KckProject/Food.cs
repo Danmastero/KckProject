@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Snake
 {
-    class food
+    class Food
     {
         public char foodbody1;
         public char foodbody2;
 
-        public food()
+        public Food()
         {
             foodbody1 = '#';
             foodbody2 = '*';

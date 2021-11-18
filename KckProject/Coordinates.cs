@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Snake
 {
-    public class cords
+    public class Coordinates
     {
         public int x;
         public int y;
 
-        public cords(int X, int Y)
+        public Coordinates(int X, int Y)
         {
             x = X;
             y = Y;

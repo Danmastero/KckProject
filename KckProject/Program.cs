@@ -7,6 +7,11 @@ namespace Snake
 {
     class Program
     {
+        private const int yCordTop = 10;
+        private const int Width = 100;
+        private const int Height = 50;
+        private const int xCordTop = 5;
+
         static void Main(string[] args)
         {
             // some setup
@@ -50,21 +55,17 @@ namespace Snake
               @"   ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝  "
             };
 
-            //snake player = new snake(); // make a player <- our snake
-            Menu Main = new Menu(prop, options1, 31); // get ready main menu
-            Menu End = new Menu(prop, options2, 31); // menu after game over
-            Menu Pause = new Menu("Choose what to do:", options3, 31); // pause menu
+            
+            Menu Main = new Menu(prop, options1, 31); 
+            Menu End = new Menu(prop, options2, 31); 
+            Menu Pause = new Menu("Choose what to do:", options3, 31); 
 
-            // setup the game and map
-
-
-            // main game loop
             while (game)
             {
-                Console.SetWindowSize(100, 50);
+                Console.SetWindowSize(Width, Height);
                 Console.CursorVisible = false;
                 score = 0;
-                snake player = new snake();
+                Snake player = new Snake();
                 Console.Clear();
                 MapBoarders();
                 ShowTop(score);
@@ -79,7 +80,7 @@ namespace Snake
 
                 while (play)
                 {
-                    Console.SetWindowSize(100, 50);
+                    Console.SetWindowSize(Width, Height);
                     Console.CursorVisible = false;
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     ShowTop(score);
@@ -119,13 +120,13 @@ namespace Snake
                     {
                         player.MakeSnack();
                         score += 5;
-                        Console.Beep(800, 10);
+                        Console.Beep(800, 15);
                     }
                     if (player.EatFood() == 2)
                     {
                         player.MakeDrug();
                         score += 10;
-                        Console.Beep(500, 10);
+                        Console.Beep(500, 15);
                     }
                 }
                 if (game)
@@ -153,18 +154,18 @@ namespace Snake
         static void MapBoarders()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(10, 5);
+            Console.SetCursorPosition(yCordTop, xCordTop);
             Console.Write("┌");
-            Console.SetCursorPosition(90, 5);
+            Console.SetCursorPosition(90, xCordTop);
             Console.Write("┐");
-            Console.SetCursorPosition(10, 45);
+            Console.SetCursorPosition(yCordTop, 45);
             Console.Write("└");
             Console.SetCursorPosition(90, 45);
             Console.Write("┘");
 
             for (int i = 11; i < 90; i++)
             {
-                Console.SetCursorPosition(i, 5);
+                Console.SetCursorPosition(i, xCordTop);
                 Console.Write("─");
                 Console.SetCursorPosition(i, 45);
                 Console.Write("─");
@@ -172,7 +173,7 @@ namespace Snake
 
             for (int i = 6; i < 45; i++)
             {
-                Console.SetCursorPosition(10, i);
+                Console.SetCursorPosition(yCordTop, i);
                 Console.Write("│");
                 Console.SetCursorPosition(90, i);
                 Console.Write("│");
@@ -201,7 +202,7 @@ namespace Snake
             Console.SetCursorPosition(18, 3);
             Console.Write("Use arrorws to change direction of the snake, ESC to pause a game");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition((Console.WindowWidth / 2) - 5, 5);
+            Console.SetCursorPosition((Width / 2) - xCordTop, xCordTop);
             Console.Write("Score: {0}", score);
         }
     }

@@ -6,16 +6,16 @@ namespace Snake
 {
     class Menu
     {
-        private string prop;
-        private string[] options;
-        private int y;
+        private string _prop;
+        private string[] _options;
+        private int _y;
 
 
-        public Menu(string _prop, string[] _options, int Y)
+        public Menu(string prop, string[] options, int y)
         {
-            prop = _prop;
-            options = _options;
-            y = Y;
+            _prop = prop;
+            _options = options;
+            _y = y;
         }
         public int MakeMenu()
         {
@@ -24,23 +24,23 @@ namespace Snake
 
             while (true)
             {
-                posY = y;
+                posY = _y;
                 Console.SetWindowSize(100, 50);
                 Console.CursorVisible = false;
-                Console.SetCursorPosition((Console.WindowWidth / 2) - (prop.Length / 2), posY);
-                Console.WriteLine(prop);
-                for (int i = 0; i < options.Length; i++)
+                Console.SetCursorPosition((Console.WindowWidth / 2) - (_prop.Length / 2), posY);
+                Console.WriteLine(_prop);
+                for (int i = 0; i < _options.Length; i++)
                 {
                     posY++;
                     if (i == index)
                     {
-                        Console.SetCursorPosition((Console.WindowWidth / 2) - (prop.Length / 2), posY);
-                        Console.WriteLine("> {0}", options[i]);
+                        Console.SetCursorPosition((Console.WindowWidth / 2) - (_prop.Length / 2), posY);
+                        Console.WriteLine("> {0}", _options[i]);
                     }
                     else
                     {
-                        Console.SetCursorPosition((Console.WindowWidth / 2) - (prop.Length / 2), posY);
-                        Console.WriteLine("  {0}", options[i]);
+                        Console.SetCursorPosition((Console.WindowWidth / 2) - (_prop.Length / 2), posY);
+                        Console.WriteLine("  {0}", _options[i]);
                     }
                 }
                 if (Console.KeyAvailable)
@@ -52,7 +52,7 @@ namespace Snake
                             if (index > 0) { index--; }
                             break;
                         case (ConsoleKey.DownArrow):
-                            if (index < options.Length - 1) { index++; }
+                            if (index < _options.Length - 1) { index++; }
                             break;
                         case (ConsoleKey.Enter):
                             return index;
